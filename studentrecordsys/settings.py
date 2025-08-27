@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url   
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
      "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
 ]
 
 ROOT_URLCONF = 'studentrecordsys.urls'
@@ -98,6 +100,11 @@ DATABASES = {
         
     }
 }
+
+# If DATABASE_URL exists (on Render), override the default
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+if db_from_env:
+    DATABASES["default"] = db_from_env
 
 
 # Password validation
@@ -162,3 +169,16 @@ DATABASES = {
         conn_max_age=600,
     )
 }
+
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config(
+    conn_max_age=600,
+    ssl_require=True
+)
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Let WhiteNoise handle static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
