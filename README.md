@@ -3,7 +3,7 @@ A Django-based Student Record Management System (SRMS) that allows colleges/univ
 
 This project was developed as part of my BCA coursework and demonstrates full-stack development skills with Django, MySQL, and PostgreSQL.
 
-🚀 Features
+🚀 Features 
 
 👩‍🎓 Student Management: Add, update, delete student profiles
 
